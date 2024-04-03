@@ -1,0 +1,13 @@
+{
+    "name": "rfpcm",
+    "description": "PCM reframer",
+    "filters":["rfpcm"],
+    "help": "This filter parses raw PCM file/data or WAVE files and outputs corresponding raw audio.",
+    "support": [
+        "audio"
+    ],
+    "sources":"https://bevara.ddns.net/sources/rfpcm.accessor",
+    "filter_source":{
+        "rfpcm" : "reframe_rawpcm.c"
+    }
+}
