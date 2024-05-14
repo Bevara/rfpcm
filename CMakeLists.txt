@@ -6,13 +6,13 @@ include(filters.cmake)
 add_definitions(-fpic)
 
 SET(RFPCM_SRC
-        ${CMAKE_SOURCE_DIR}/reframe_rawpcm.c
-        ${CMAKE_SOURCE_DIR}/bitstream.c
-        ${CMAKE_SOURCE_DIR}/constants.c
+        ${CMAKE_CURRENT_SOURCE_DIR}/reframe_rawpcm.c
+        ${CMAKE_CURRENT_SOURCE_DIR}/bitstream.c
+        ${CMAKE_CURRENT_SOURCE_DIR}/constants.c
 )
 
 SET(RFPCM_INC
-        ${CMAKE_SOURCE_DIR}/include
+        ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
 add_filter(rfpcm
