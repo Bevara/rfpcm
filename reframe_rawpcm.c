@@ -544,3 +544,9 @@ const GF_FilterRegister *rfpcm_register(GF_FilterSession *session)
 	return NULL;
 }
 #endif //GPAC_DISABLE_RFPCM
+
+#include "filter_register.h"
+__attribute__((constructor))
+void register_pcmreframe(void) {
+    gf_filter_auto_register("pcmreframe", dynCall_pcmreframe_register);
+}
