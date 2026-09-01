@@ -532,7 +532,7 @@ GF_FilterRegister PCMReframeRegister = {
 };
 
 
-const GF_FilterRegister * EMSCRIPTEN_KEEPALIVE dynCall_pcmreframe_register(GF_FilterSession *session)
+const GF_FilterRegister * EMSCRIPTEN_KEEPALIVE pcmreframe_register(GF_FilterSession *session)
 {
 	PCMReframeArgs[1].min_max_enum = gf_audio_fmt_all_names();
 	PCMReframeCaps[1].val.value.string = (char *) gf_audio_fmt_all_shortnames();
@@ -548,5 +548,5 @@ const GF_FilterRegister *rfpcm_register(GF_FilterSession *session)
 #include "filter_register.h"
 __attribute__((constructor))
 void register_pcmreframe(void) {
-    gf_filter_auto_register("pcmreframe", dynCall_pcmreframe_register);
+    gf_filter_auto_register("pcmreframe", pcmreframe_register);
 }
