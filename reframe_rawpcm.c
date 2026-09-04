@@ -2,7 +2,7 @@
  *			GPAC - Multimedia Framework C SDK
  *
  *			Authors: Jean Le Feuvre
- *			Copyright (c) Telecom ParisTech 2018-2023
+ *			Copyright (c) Telecom ParisTech 2018-2026
  *					All rights reserved
  *
  *  This file is part of GPAC / RAW PCM reframer filter
@@ -121,9 +121,7 @@ GF_Err pcmreframe_configure_pid(GF_Filter *filter, GF_FilterPid *pid, Bool is_re
 	p = gf_filter_pid_get_property(ctx->ipid, GF_PROP_PID_FILE_CACHED);
 	if (p && p->value.boolean) ctx->file_loaded = GF_TRUE;
 
-	if (!gf_sys_is_test_mode() ) {
-		gf_filter_pid_set_property(ctx->opid, GF_PROP_PID_BITRATE, & PROP_UINT(ctx->sr * ctx->Bps * ctx->ch));
-	}
+	gf_filter_pid_set_property(ctx->opid, GF_PROP_PID_BITRATE, & PROP_UINT(ctx->sr * ctx->Bps * ctx->ch));
 
 	p = gf_filter_pid_get_property(ctx->ipid, GF_PROP_PID_DOWN_SIZE);
 	if (p && p->value.longuint) {
@@ -144,6 +142,7 @@ static Bool pcmreframe_process_event(GF_Filter *filter, const GF_FilterEvent *ev
 	u32 nb_frames;
 	GF_FilterEvent fevt;
 	GF_PCMReframeCtx *ctx = gf_filter_get_udta(filter);
+	if (!ctx->ipid) return GF_TRUE;
 
 	switch (evt->base.type) {
 	case GF_FEVT_PLAY:
@@ -369,6 +368,10 @@ GF_Err pcmreframe_process(GF_Filter *filter)
 			GF_LOG(GF_LOG_ERROR, GF_LOG_MEDIA, ("[PCMReframe] Samplerate %d invalid in wave\n", ctx->sr));
 			wav_ok = GF_FALSE;
 		}
+		if (!ctx->safmt) {
+			GF_LOG(GF_LOG_ERROR, GF_LOG_MEDIA, ("[PCMReframe] Audio format unrecognized in wave\n"));
+			wav_ok = GF_FALSE;
+		}
 
 		ctx->wav_hdr_size = (u32) gf_bs_get_position(bs);
 
@@ -528,11 +531,12 @@ GF_FilterRegister PCMReframeRegister = {
 	.configure_pid = pcmreframe_configure_pid,
 	.process = pcmreframe_process,
 	.process_event = pcmreframe_process_event,
-	.probe_data = pcmreframe_probe_data
+	.probe_data = pcmreframe_probe_data,
+	.hint_class_type = GF_FS_CLASS_FRAMING
 };
 
 
-const GF_FilterRegister * EMSCRIPTEN_KEEPALIVE pcmreframe_register(GF_FilterSession *session)
+const GF_FilterRegister *rfpcm_register(GF_FilterSession *session)
 {
 	PCMReframeArgs[1].min_max_enum = gf_audio_fmt_all_names();
 	PCMReframeCaps[1].val.value.string = (char *) gf_audio_fmt_all_shortnames();
@@ -545,8 +549,9 @@ const GF_FilterRegister *rfpcm_register(GF_FilterSession *session)
 }
 #endif //GPAC_DISABLE_RFPCM
 
+/*Bevara: side modules register their own filters at load time.*/
 #include "filter_register.h"
 __attribute__((constructor))
 void register_pcmreframe(void) {
-    gf_filter_auto_register("pcmreframe", pcmreframe_register);
+    gf_filter_auto_register("pcmreframe", rfpcm_register);
 }
