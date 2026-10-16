@@ -1,5 +1,6 @@
 {
     "name": "rfpcm",
+    "version": "1.0.1",
     "description": "PCM reframer",
     "filters":["rfpcm"],
     "help": "This filter parses raw PCM file/data or WAVE files and outputs corresponding raw audio.",
