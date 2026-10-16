@@ -14,7 +14,6 @@
     "extension":{
       "wav" : "audio"
     },
-    "licence_required":false,
     "using": ["solver_minimal_1", "solver_1"],
     "runtime": {
         "rfpcm": {
@@ -32,5 +31,10 @@
                 }
             ]
         }
+    },
+    "patents": {
+        "status": "royalty-free",
+        "note": "raw PCM",
+        "checked": "2026-10-16"
     }
 }
