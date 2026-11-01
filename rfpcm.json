@@ -1,6 +1,6 @@
 {
     "name": "rfpcm",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "description": "PCM reframer",
     "filters":["rfpcm"],
     "help": "This filter parses raw PCM file/data or WAVE files and outputs corresponding raw audio.",
@@ -15,7 +15,7 @@
     "extension":{
       "wav" : "audio"
     },
-    "using": ["solver_minimal_1", "solver_1"],
+    "using": ["mm_solver_minimal_1.0.1", "mm_solver_1.0.1"],
     "runtime": {
         "rfpcm": {
             "outputs": [
