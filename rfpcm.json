@@ -2,20 +2,31 @@
     "name": "rfpcm",
     "version": "1.0.2",
     "description": "PCM reframer",
-    "filters":["rfpcm"],
+    "filters": [
+        "rfpcm"
+    ],
     "help": "This filter parses raw PCM file/data or WAVE files and outputs corresponding raw audio.",
     "support": [
         "audio"
     ],
-    "sources":"https://bevara.ddns.net/sources/rfpcm.accessor",
-    "filter_source":{
-        "rfpcm" : "reframe_rawpcm.c"
+    "sources": "https://bevara.ddns.net/sources/rfpcm.accessor",
+    "filter_source": {
+        "rfpcm": "reframe_rawpcm.c"
     },
-    "Format": ["PCM"],
-    "extension":{
-      "wav" : "audio"
+    "Format": [
+        "PCM"
+    ],
+    "extension": {
+        "wav": "audio"
     },
-    "using": ["mm_solver_minimal_1.0.1", "mm_solver_1.0.1", "mm_solver_1.0.2", "mm_solver_1.0.3", "mm_solver_1.0.4"],
+    "using": [
+        "mm_solver_minimal_1.0.1",
+        "mm_solver_1.0.1",
+        "mm_solver_1.0.2",
+        "mm_solver_1.0.3",
+        "mm_solver_1.0.4",
+        "mm_solver_1.0.5"
+    ],
     "runtime": {
         "rfpcm": {
             "outputs": [
